@@ -37,6 +37,7 @@ button {
 #msg {
   margin-top:20px;
   font-size:18px;
+  font-weight:bold;
 }
 </style>
 
@@ -62,7 +63,7 @@ function envoyer() {
     return;
   }
 
-  fetch("https://script.google.com/macros/s/AKfycbyj50qLpB3NhAqAbsUlPaaaKP_T2Rx6BB8RlFNRYmuVYRyPqfmFmRXmYdZp3Rwzz-9JAA/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbwQPRmQd9d_kVqUPyjS6r9aHMFKBoA9UXSH_acNhsjfs6nZozt0GcPAAvJgQkUbYdcPgw/exec", {
     method: "POST",
     body: new URLSearchParams({
       user: val,
@@ -73,6 +74,10 @@ function envoyer() {
   .then(t => {
     document.getElementById("msg").innerHTML = t;
     document.getElementById("code").value = "";
+  })
+  .catch(err => {
+    document.getElementById("msg").innerHTML = "❌ Erreur connexion";
+    console.error(err);
   });
 }
 </script>
