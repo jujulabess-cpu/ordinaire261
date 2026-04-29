@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  text-align:center;
+  font-family:Arial;
+  margin-top:40px;
+}
+
+h2 {
+  font-size:24px;
+}
+
+input {
+  font-size:26px;
+  padding:12px;
+  width:200px;
+  text-align:center;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+button {
+  margin-top:20px;
+  font-size:20px;
+  padding:12px 30px;
+  border-radius:10px;
+  background:#2e7d32;
+  color:white;
+  border:none;
+}
+
+#msg {
+  margin-top:20px;
+  font-size:18px;
+  font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Restaurant R28</h1>
+
+<input id="code" type="password" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="••••••">
+<br>
+
+<button onclick="envoyer()">✅ Valider</button>
+
+<div id="msg"></div>
+
+<script>
+function envoyer() {
+  const val = document.getElementById("code").value;
+
+  if (!val) {
+    document.getElementById("msg").innerHTML = "❌ Entre un NIGEND";
+    return;
+  }
+
+  fetch("https://script.google.com/macros/s/AKfycbwQPRmQd9d_kVqUPyjS6r9aHMFKBoA9UXSH_acNhsjfs6nZozt0GcPAAvJgQkUbYdcPgw/exec", {
+    method: "POST",
+    body: new URLSearchParams({
+      user: val,
+      resto: "R28"
+    })
+  })
+  .then(r => r.text())
+  .then(t => {
+    document.getElementById("msg").innerHTML = t;
+    document.getElementById("code").value = "";
+  })
+  .catch(err => {
+    document.getElementById("msg").innerHTML = "❌ Erreur connexion";
+    console.error(err);
+  });
+}
+</script>
+
+</body>
+</html>
