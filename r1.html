@@ -5,10 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body { text-align:center; font-family:Arial; margin-top:40px; }
-input { font-size:22px; padding:10px; }
-button { font-size:20px; padding:10px 20px; margin-top:20px; }
+body {
+  text-align:center;
+  font-family:Arial;
+  margin-top:40px;
+}
+
+h2 {
+  font-size:24px;
+}
+
+input {
+  font-size:26px;
+  padding:12px;
+  width:200px;
+  text-align:center;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+button {
+  margin-top:20px;
+  font-size:20px;
+  padding:12px 30px;
+  border-radius:10px;
+  background:#2e7d32;
+  color:white;
+  border:none;
+}
+
+#msg {
+  margin-top:20px;
+  font-size:18px;
+}
 </style>
+
 </head>
 
 <body>
@@ -17,15 +48,21 @@ button { font-size:20px; padding:10px 20px; margin-top:20px; }
 
 <input id="code" type="number" placeholder="NIGEND">
 <br>
-<button onclick="send()">Valider</button>
+
+<button onclick="envoyer()">✅ Valider</button>
 
 <div id="msg"></div>
 
 <script>
-function send() {
+function envoyer() {
   const val = document.getElementById("code").value;
 
-  fetch("https://script.google.com/macros/s/AKfycbx3a_XMfMYOIYsyov0LGjKvyVjQiu94sYmP62AE2_LBHIE0zlZpexH3qq_-xdEjlP560Q/exec", {
+  if (!val) {
+    document.getElementById("msg").innerHTML = "❌ Entre un NIGEND";
+    return;
+  }
+
+  fetch("https://script.google.com/macros/s/AKfycbyj50qLpB3NhAqAbsUlPaaaKP_T2Rx6BB8RlFNRYmuVYRyPqfmFmRXmYdZp3Rwzz-9JAA/exec", {
     method: "POST",
     body: new URLSearchParams({
       user: val,
@@ -35,6 +72,7 @@ function send() {
   .then(r => r.text())
   .then(t => {
     document.getElementById("msg").innerHTML = t;
+    document.getElementById("code").value = "";
   });
 }
 </script>
