@@ -4,12 +4,40 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta http-equiv="refresh" content="0; url=https://script.google.com/macros/s/AKfycbx3a_XMfMYOIYsyov0LGjKvyVjQiu94sYmP62AE2_LBHIE0zlZpexH3qq_-xdEjlP560Q/exec?resto=R1">
-
-<title>Redirection</title>
+<style>
+body { text-align:center; font-family:Arial; margin-top:40px; }
+input { font-size:22px; padding:10px; }
+button { font-size:20px; padding:10px 20px; margin-top:20px; }
+</style>
 </head>
 
 <body>
-Redirection...
+
+<h2>Restaurant R1</h2>
+
+<input id="code" type="number" placeholder="NIGEND">
+<br>
+<button onclick="send()">Valider</button>
+
+<div id="msg"></div>
+
+<script>
+function send() {
+  const val = document.getElementById("code").value;
+
+  fetch("https://script.google.com/macros/s/AKfycbx3a_XMfMYOIYsyov0LGjKvyVjQiu94sYmP62AE2_LBHIE0zlZpexH3qq_-xdEjlP560Q/exec", {
+    method: "POST",
+    body: new URLSearchParams({
+      user: val,
+      resto: "R1"
+    })
+  })
+  .then(r => r.text())
+  .then(t => {
+    document.getElementById("msg").innerHTML = t;
+  });
+}
+</script>
+
 </body>
 </html>
